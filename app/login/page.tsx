@@ -30,7 +30,6 @@ const Login: React.FC = () => {
 
       if (response.data.success) {
         alert("Login successful: " + response.data.message);
-        // Example: Save token to localStorage
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
         }

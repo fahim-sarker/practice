@@ -1,48 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { data, Product } from "@/public/data/data";
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-}
 
 const ProductDetails = () => {
   const params = useParams();
   const router = useRouter();
-  const productId = Number(params.id);
 
   const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    // Mock data
-    const data: Product[] = [
-      {
-        id: 1,
-        name: "Product 1",
-        price: 19.99,
-        description: "This is product 1",
-      },
-      {
-        id: 2,
-        name: "Product 2",
-        price: 29.99,
-        description: "This is product 2",
-      },
-      {
-        id: 3,
-        name: "Product 3",
-        price: 39.99,
-        description: "This is product 3",
-      },
-    ];
-
-    const found = data.find(item => item.id === productId);
-    setProduct(found || null);
-  }, [productId]);
+    const found = data.find(item => item.id === Number(params.id));
+    if (found) setProduct(found);
+  }, [params.id]);
 
   const addToCart = () => {
     if (!product) return;
